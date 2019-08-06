@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class userController {
 
@@ -14,13 +16,13 @@ public class userController {
     private UserDao userDao;
 
     @RequestMapping("/userlogin")
-    public String login(User user, ModelMap modelMap){
+    public String login(User user, ModelMap modelMap,HttpSession session){
         String username = user.getUsername();
         String password = user.getPassword();
         User uu = userDao.get(username,password);
-//        System.out.println("login :" + username + " : " + password);
 
         if(uu != null){
+            session.setAttribute("username",username);
             return "home";
         }
 

@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: Old_man
   Date: 2019/8/5
@@ -8,9 +9,77 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix='fmt' %>
+    <script src="${pageContext.request.contextPath}/bootstrap/js/jquery/2.0.0/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap/3.3.6/bootstrap.js"></script>
+    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap/3.3.6/bootstrap.css" rel="stylesheet">
+    <title>聊天室主页</title>
 </head>
 <body>
 
+<div class="panel panel-default">
+    <div class="panel-heading"><h2 class="red-text text-center">欢迎来到${username}聊天室</h2></div>
+    <div class="panel-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-2">
+                    <div class="onlineUser">
+                        <table class="table">
+                            <thead><tr><th style="color: darkred">在线人员</th></tr></thead>
+                            <c:forEach items="${onlineUser}" var="online" >
+                                    <tbody><tr><td>${online}</td></tr></tbody>
+                            </c:forEach>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+
+                </div>
+                <div class="col-xs-4">
+                    <div class="privateChat">
+                        <div class="content private-content">
+                        </div>
+                        <br>
+                        <div>
+                            <form class="form-inline" action="/privateChat" method="post">
+                                <input class="form-control" type="text" size="5" name="chatwho" placeholder="chat who">
+                                <input class="form-control" type="text" size="15" name="saywhat" placeholder="input chat">
+                                <input class="btn btn-primary" type="submit" value="enter">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="publicChat">
+                        <div class="content public-content">
+                        </div>
+                        <br>
+                        <div>
+                            <form class="form-inline" action="/publicChat" method="post">
+                                <input class="form-control" type="text" size="20" name="saywhat" placeholder="input chat">
+                                <input class="btn btn-primary" type="submit" value="enter">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 </body>
+<style>
+    div.panel-body{
+        height: 80%;
+    }
+
+    div.content{
+        height: 80%;
+        border:1px solid #000
+    }
+</style>
 </html>
