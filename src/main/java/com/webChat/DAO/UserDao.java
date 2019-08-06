@@ -5,10 +5,7 @@ import com.webChat.entities.User;
 import com.webChat.util.DBUtil;
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 @Component
 public class UserDao {
@@ -17,7 +14,7 @@ public class UserDao {
      */
     public void add(User user) {
         String sql = "insert into user values(null,?,?)";
-        try (Connection con = DBUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.executeUpdate();

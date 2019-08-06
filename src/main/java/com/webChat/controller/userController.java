@@ -29,4 +29,17 @@ public class userController {
         modelMap.addAttribute("msg","用户名密码错误!");
         return "login";
     }
+
+    @RequestMapping("/userlogout/{username}")
+    public String logout(@PathVariable(value = "username",required = false) String s,HttpSession session){
+        session.removeAttribute(s);
+        session.invalidate();
+        return "redirect:/index.jsp";
+    }
+
+    @RequestMapping("/userregister")
+    public String userRegister(User user){
+        userDao.add(user);
+        return "redirect:/views/login.jsp";
+    }
 }

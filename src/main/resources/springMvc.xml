@@ -14,6 +14,17 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/views/login.jsp"/>
+            <mvc:exclude-mapping path="/views/register.jsp"/>
+            <bean class="com.webChat.handle.LoginHandle"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!--
         对没有在handler有映射的资源交给服务器默认的servlet来处理,
         这样静态资源就不会被拦截
